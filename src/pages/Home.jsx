@@ -2,7 +2,11 @@
 import { Divider } from '../components/divider'
 import { Badge } from '../components/badge'
 import { Heading, Subheading } from '../components/heading'
-import {getLists} from '../utils/api';
+import {
+  getLists,
+  getListCount, 
+  getListVerifiedCount
+} from '../utils/api';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/table'
 
 
@@ -72,7 +76,7 @@ export default function Home(){
               Status
             </TableHeader>
             <TableHeader>
-              Emails Processed
+             Verified Emails
             </TableHeader>
             <TableHeader className="text-right">
               Actions
@@ -86,13 +90,13 @@ export default function Home(){
               {list?.Name}
             </TableCell>
             <TableCell>
-              
+                <NumberOfEmails id={list?.ID} />
             </TableCell>
             <TableCell>
               <Badge color="lime">Verified</Badge>
             </TableCell>
             <TableCell>
-              
+              <NumberOfVerifiedEmails id={list?.ID} />
             </TableCell>
             <TableCell className="text-right">
               <Button color="lime" className="mr-2">Download Verified</Button>
@@ -108,4 +112,32 @@ export default function Home(){
       </Table>
 
   </>)
+}
+
+function NumberOfEmails({ id }) {
+  const [count, setCount] = useState('⟳');
+  useEffect(() => {
+    getListCount(id)
+      .then((data) => {
+        setCount(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+  return <>{count}</>;
+}
+
+function NumberOfVerifiedEmails({ id }) {
+  const [count, setCount] = useState('⟳');
+  useEffect(() => {
+    getListVerifiedCount(id)
+      .then((data) => {
+        setCount(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+  return <>{count}</>;
 }
