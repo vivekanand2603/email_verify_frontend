@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "./pages/Home";
 import SideBar from "./SideBar";
+import UploadList from "./pages/UploadList";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <SideBar SideComponent={Home} />,
   },
+  {
+    path: "/upload-lists",
+    element: <SideBar SideComponent={UploadList} />,
+  }
 ]);
 export default function App() {
   return (

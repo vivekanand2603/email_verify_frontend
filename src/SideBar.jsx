@@ -13,12 +13,13 @@ import {
   Square2StackIcon,
 } from '@heroicons/react/20/solid'
 const pathname = window.location.pathname
-
+import { DashboardProvider } from './contexts/dashboard' 
 export default function App({
   SideComponent
 }) {
 
   return (
+    <DashboardProvider>
     <SidebarLayout
       navbar={<Navbar />}
       sidebar={<Sidebar>
@@ -28,7 +29,7 @@ export default function App({
               <HomeIcon />
               <SidebarLabel>Home</SidebarLabel>
             </SidebarItem>
-            <SidebarItem href="/upload-lists" current={pathname.startsWith('/lists')}>
+            <SidebarItem href="/upload-lists" current={pathname.startsWith('/upload-lists')}>
               <Square2StackIcon />
               <SidebarLabel>Upload List</SidebarLabel>
             </SidebarItem>
@@ -38,5 +39,6 @@ export default function App({
     >
       <SideComponent />
     </SidebarLayout>
+    </DashboardProvider>
   )
 }

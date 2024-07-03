@@ -7,7 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 
 
 import { Button } from '../components/button'
-
+import { DashboardContext } from '../contexts/dashboard'
+import { useContext } from 'react'
 
 export function Stat({ title, value, change }) {
   return (
@@ -23,7 +24,9 @@ export function Stat({ title, value, change }) {
 }
 
 export default function Home(){
+  const { state, dispatch } = useContext(DashboardContext);
   return(<>
+
   <Heading>
         Welcome to Email Verification
        </Heading>
@@ -77,5 +80,6 @@ export default function Home(){
             </TableRow>
         </TableBody>
       </Table>
+
   </>)
 }
