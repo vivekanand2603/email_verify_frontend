@@ -2,13 +2,13 @@
 import { Divider } from '../components/divider'
 import { Badge } from '../components/badge'
 import { Heading, Subheading } from '../components/heading'
-
+import {getLists} from '../utils/api';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/table'
 
 
 import { Button } from '../components/button'
 import { DashboardContext } from '../contexts/dashboard'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 export function Stat({ title, value, change }) {
   return (
@@ -25,6 +25,25 @@ export function Stat({ title, value, change }) {
 
 export default function Home(){
   const { state, dispatch } = useContext(DashboardContext);
+  const [lists, setLists] = useState([]);
+  useEffect(() => {
+    dispatch({ type: 'GET_DASHBOARD' });
+    getLists()
+      .then((data) => {
+        dispatch({ type: 'GET_DASHBOARD_SUCCESS', payload: data });
+      })
+      .catch((error) => {
+        dispatch({ type: 'GET_DASHBOARD_ERROR', payload: error });
+      });
+  }, []);
+  useEffect(() => {
+    // check if state.dashboard is an array & has length
+    if (Array.isArray(state.dashboard) && state.dashboard.length) {
+      setLists(state.dashboard);
+    } else {
+      setLists([]);
+    }
+  }, [state]);
   return(<>
 
   <Heading>
@@ -61,23 +80,30 @@ export default function Home(){
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-              <TableCell>
-                Test
-              </TableCell>
-              <TableCell>
-                0
-              </TableCell>
-              <TableCell>
-                <Badge color="lime">Verified</Badge>
-              </TableCell>
-              <TableCell>
-                0
-              </TableCell>
-              <TableCell className="text-right">
-              <Button color="lime">View</Button>
-              </TableCell>
-            </TableRow>
+        {lists?.[0]?.ID ? lists.map((list) => (
+          <TableRow key={list?.ID}>
+            <TableCell>
+              {list?.Name}
+            </TableCell>
+            <TableCell>
+              
+            </TableCell>
+            <TableCell>
+              <Badge color="lime">Verified</Badge>
+            </TableCell>
+            <TableCell>
+              
+            </TableCell>
+            <TableCell className="text-right">
+              <Button color="lime" className="mr-2">Download Verified</Button>
+              <Button color="red" outline>Delete</Button>
+            </TableCell>
+          </TableRow>
+        )) : <TableRow>
+          <TableCell colSpan={5} className="text-center">
+            No lists found
+          </TableCell>
+        </TableRow>}
         </TableBody>
       </Table>
 
