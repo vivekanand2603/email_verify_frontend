@@ -1,20 +1,19 @@
 import React from "react";
 import Home from "./Home";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  createBrowserRouter,
+  RouterProvider,
 } from "react-router-dom";
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+]);
 export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <div className="text-zinc-950 antialiased lg:bg-zinc-100 dark:bg-zinc-900 dark:text-white dark:lg:bg-zinc-950 light">
+    <RouterProvider router={router} />
+    </div>
   );
 }
