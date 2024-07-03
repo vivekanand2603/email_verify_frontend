@@ -1,5 +1,6 @@
 import React from "react";
-import Home from "./Home";
+import Home from "./pages/Home";
+import SideBar from "./SideBar";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -7,7 +8,7 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <SideBar SideComponent={Home} />,
   },
 ]);
 export default function App() {
