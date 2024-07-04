@@ -1,4 +1,4 @@
-const host = 'http://localhost:30003';
+const host = 'https://emailverifyapi.thinksurfmedia.co.in/';
 
 async function getLists() {
   const response = await fetch(`${host}/lists`);
