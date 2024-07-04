@@ -49,9 +49,9 @@ export function DropdownItem({ className, ...props }) {
     // Base styles
     'group cursor-default rounded-lg px-3.5 py-2.5 focus:outline-none sm:px-3 sm:py-1.5',
     // Text styles
-    'text-left text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white forced-colors:text-[CanvasText]',
+    'text-left text-base/6 text-zinc-950 sm:text-sm/6 dark:text-lime-800 forced-colors:text-[CanvasText]',
     // Focus
-    'data-[focus]:bg-blue-500 data-[focus]:text-white',
+    'data-[focus]:bg-lime-400/20 data-[focus]:text-lime-800',
     // Disabled state
     'data-[disabled]:opacity-50',
     // Forced colors mode
@@ -60,7 +60,7 @@ export function DropdownItem({ className, ...props }) {
     'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
     // Icons
     '[&>[data-slot=icon]]:col-start-1 [&>[data-slot=icon]]:row-start-1 [&>[data-slot=icon]]:-ml-0.5 [&>[data-slot=icon]]:mr-2.5 [&>[data-slot=icon]]:size-5 sm:[&>[data-slot=icon]]:mr-2 [&>[data-slot=icon]]:sm:size-4',
-    '[&>[data-slot=icon]]:text-zinc-500 [&>[data-slot=icon]]:data-[focus]:text-white [&>[data-slot=icon]]:dark:text-zinc-400 [&>[data-slot=icon]]:data-[focus]:dark:text-white',
+    '[&>[data-slot=icon]]:text-zinc-500 [&>[data-slot=icon]]:data-[focus]:text-lime-800 [&>[data-slot=icon]]:dark:text-zinc-400 [&>[data-slot=icon]]:data-[focus]:dark:text-lime-800',
     // Avatar
     '[&>[data-slot=avatar]]:-ml-1 [&>[data-slot=avatar]]:mr-2.5 [&>[data-slot=avatar]]:size-6 sm:[&>[data-slot=avatar]]:mr-2 sm:[&>[data-slot=avatar]]:size-5'
   )
@@ -130,7 +130,7 @@ export function DropdownDescription({ className, ...props }) {
       {...props}
       className={clsx(
         className,
-        'col-span-2 col-start-2 row-start-2 text-sm/5 text-zinc-500 group-data-[focus]:text-white sm:text-xs/5 dark:text-zinc-400 forced-colors:group-data-[focus]:text-[HighlightText]'
+        'col-span-2 col-start-2 row-start-2 text-sm/5 text-zinc-500 group-data-[focus]:text-lime-800 sm:text-xs/5 dark:text-zinc-400 forced-colors:group-data-[focus]:text-[HighlightText]'
       )}
     />
   )
@@ -147,7 +147,7 @@ export function DropdownShortcut({ keys, className, ...props }) {
         <kbd
           key={index}
           className={clsx([
-            'min-w-[2ch] text-center font-sans capitalize text-zinc-400 group-data-[focus]:text-white forced-colors:group-data-[focus]:text-[HighlightText]',
+            'min-w-[2ch] text-center font-sans capitalize text-zinc-400 group-data-[focus]:text-lime-800 forced-colors:group-data-[focus]:text-[HighlightText]',
             // Make sure key names that are longer than one character (like "Tab") have extra space
             index > 0 && char.length > 1 && 'pl-1',
           ])}

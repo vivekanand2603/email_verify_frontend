@@ -23,7 +23,15 @@ import { MdDeleteOutline } from "react-icons/md";
 import { Button } from '../components/button'
 import { DashboardContext } from '../contexts/dashboard'
 import { useContext, useEffect, useState } from 'react'
-
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownDescription,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+} from '../components/dropdown'
+import { ChevronDownIcon } from '@heroicons/react/16/solid'
 export function Stat({ title, value, change }) {
   return (
     <div>
@@ -109,16 +117,7 @@ export default function Home(){
               <NumberOfVerifiedEmails id={list?.ID} />
             </TableCell>
             <TableCell className="text-right">
-              <Button outline className="mr-2" onClick={()=>{
-                downloadVerifiedList(list?.ID)
-              }}>
-                {/* download icon */}
-                <CiSaveDown2 />
-              </Button>
-              <Button outline>
-                {/* delete icon */}
-                <MdDeleteOutline />
-              </Button>
+              <DownloadDrop id={list?.ID}/>
             </TableCell>
           </TableRow>
         )) : <TableRow>
@@ -204,7 +203,7 @@ function StatusBadge({ id }) {
   }, [id]);
   return (<div className='flex justify-start items-start'>
   <Badge color={
-    listInQueue ? 'lime' : count === 0 ? 'red' : count === countTotal ? 'green' : 'yellow'
+    listInQueue ? 'yellow' : count === 0 ? 'red' : count === countTotal ? 'lime' : 'yellow'
   }>{
     listInQueue ? 'In Progress' : count === 0 ? 'Not Started' : count === countTotal ? 'Completed' : 'Paused'
   }</Badge>
@@ -246,4 +245,41 @@ function LeadCount({ title, email_is_valid, change }) {
     }, 2000);
   }, []);
   return <Stat title={title} value={count} change={change} />;
+}
+
+function DownloadDrop({ id, renameFile, deleteFile }) {
+  return (
+    <Dropdown>
+      <DropdownButton outline>
+        Download
+        <ChevronDownIcon />
+      </DropdownButton>
+      <DropdownMenu>
+        <DropdownItem onClick={()=>{downloadVerifiedList(id)}}>
+          <DropdownLabel>All</DropdownLabel>
+          <DropdownDescription>
+            All Emails with verification logs.
+          </DropdownDescription>
+        </DropdownItem>
+        <DropdownItem onClick={() => renameFile()}>
+          <DropdownLabel>Vaild</DropdownLabel>
+          <DropdownDescription>
+            Only verified emails.
+          </DropdownDescription>
+        </DropdownItem>
+        <DropdownItem onClick={() => deleteFile()}>
+          <DropdownLabel>Invalid</DropdownLabel>
+          <DropdownDescription>
+            Only emails that could not be verified.
+          </DropdownDescription>
+        </DropdownItem>
+        <DropdownItem onClick={() => deleteFile()}>
+          <DropdownLabel>Unknown</DropdownLabel>
+          <DropdownDescription>
+            Emails that could not be verified.
+          </DropdownDescription>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  )
 }
